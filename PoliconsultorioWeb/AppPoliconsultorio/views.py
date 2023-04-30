@@ -2,6 +2,7 @@ from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
 from .forms import ContactoForm
+from .turno import AltaTurnoForm
 from django.http import HttpResponseRedirect
 
 # Create your views here.
@@ -86,7 +87,29 @@ def turno_medico(request):
         "listado_medicos":listado_medicos,
         "listado_disp_medicos":listado_disp_medicos,
     }
-    return render(request,"AppPoliconsultorio/turnos.html",context)
+
+    if request.method == "POST":
+        # Creo la instancia del formulario con los datos cargados en pantalla
+        alta_turno_form = AltaTurnoForm(request.POST)
+        # Valido y proceso los datos.
+        if alta_turno_form.is_valid():        
+            print('Paciente: ',alta_turno_form.cleaned_data['paciente'])
+            #print('Paciente: ',alta_turno_form.data['Juan carlos'])
+            print('Especialidad: ',alta_turno_form.cleaned_data['especialidad'])
+            print('Medico: ',alta_turno_form.cleaned_data['medico'])
+            print('Fecha: ',alta_turno_form.cleaned_data['fecha'])
+            #print('Horario: ',alta_turno_form.cleaned_data['horario'])
+            #print('Disponible: ',alta_turno_form.cleaned_data['disponible'])
+            #print('Flag_Disponible: ',alta_turno_form.cleaned_data['flag_disponible'])
+            #Redirect to a new url:
+            print("Es valido")
+            return HttpResponseRedirect('/AppPoliconsultorio/turno_medico/')
+    else:
+        # Creo el formulario vacío con los valores por defecto
+        alta_turno_form = AltaTurnoForm()
+    return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form})
+    #return render(request,"AppPoliconsultorio/turnos.html",context)
+
 
 def especialidades(request):
     context = {}
