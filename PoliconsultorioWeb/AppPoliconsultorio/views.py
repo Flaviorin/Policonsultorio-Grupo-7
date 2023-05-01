@@ -1,9 +1,12 @@
 from datetime import datetime
 from django.shortcuts import render
-from django.http import HttpResponse, HttpResponseNotFound
-from .forms import ContactoForm
-from .turno import AltaTurnoForm
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
+
+from .forms import *
+from .turno import *
+
+from .especialidades import lista_especialidades
+from .medicos import lista_medicos
 
 # Create your views here.
 def index(request):
@@ -17,29 +20,7 @@ def index(request):
         'paciente': 'Adriana Cullen',
     }
 
-    listado_turnos = [
-        {
-            'dia': '20/04/2023',
-            'hora': '09:00',
-            'medico': 'Dr. Juan Pérez',
-            'especialidad': 'Cardiología',
-            'paciente': 'Adriana Cullen',
-        },
-        {
-            'dia': '20/04/2023',
-            'hora': '09:00',
-            'medico': 'Dra. María González',
-            'especialidad': 'Dermatología',
-            'paciente': 'José Olleros',
-        },
-        {
-            'dia': '20/04/2023',
-            'hora': '11:00',
-            'medico': 'Dr. Juan Perez',
-            'especialidad': 'Cardiología',
-            'paciente': 'Mariano Burgos',
-        },
-    ]
+    listado_turnos = lista_turnos()
 
     context = {
         "hoy": datetime.now,
@@ -49,22 +30,11 @@ def index(request):
         }
     return render(request, "AppPoliconsultorio/index.html", context)
 
-def index(request):
-    context = {}
-    return render (request,"AppPoliconsultorio/index.html", context)
-
-
 def turno_medico(request):
 
-    listado_especialidad = ['Cardiología','Dermatología',
-        'Neurología','Oftalmología','Pediatría']
+    listado_especialidad = lista_especialidades()
 
-    listado_medicos = [{'ID':'1','nombre':'Dr. Juan Pérez (Cardiología)','Especialidad':'Cardiología'},
-                       {'ID':'2','nombre':'Dra. María González (Dermatología)','Especialidad':'Dermatología'},
-                       {'ID':'3','nombre':'Dr. Luis Sánchez (Neurología)','Especialidad':'Neurología'},
-                       {'ID':'4','nombre':'Dra. Ana Rodríguez (Oftalmología)','Especialidad':'Oftalmología'},
-                       {'ID':'5','nombre':'Dr. Pedro López (Pediatría)','Especialidad':'Pediatría'}
-                       ]    
+    listado_medicos = lista_medicos()
 
     listado_disp_medicos = [{'ID':'1',
                              'horario':'8:00 a 9:00',
@@ -110,6 +80,19 @@ def turno_medico(request):
     return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form})
     #return render(request,"AppPoliconsultorio/turnos.html",context)
 
+def turno_consulta(request):
+    listado_turnos = lista_turnos()
+    
+    if request.method == "POST":
+        turno_consulta_form = ConsultaTurnosForm(request.POST)
+    else:
+        turno_consulta_form = ConsultaTurnosForm()
+
+    context = {
+        "listado_turnos": listado_turnos,
+        "turno_consulta_form": turno_consulta_form,
+    }
+    return render(request, "AppPoliconsultorio/turno_consulta.html", context)
 
 def especialidades(request):
     context = {}
@@ -148,4 +131,31 @@ def contacto(request):
     
 def thanks(request): #new
     context = {}
-    return render(request,"AppPoliconsultorio/thanks.html",context)    
+    return render(request,"AppPoliconsultorio/thanks.html",context)
+
+def consulta_medicos(request):
+    # Prepara los combos
+    listado_especialidad = lista_especialidades()
+    listado_medicos = lista_medicos()
+
+    if request.method == "POST":
+        consulta_medicos_form = ConsultaMedicosForm(request.POST)
+    else:
+        consulta_medicos_form = ConsultaMedicosForm()
+
+    context = {
+        "listado_especialidad": listado_especialidad,
+        "listado_medicos": listado_medicos,
+        "form": consulta_medicos_form,
+    }
+    return render(request, "AppPoliconsultorio/consulta_medicos.html", context)
+
+def alta_medico(request):
+    # Alta de un Médico
+    context = {}
+    return render(request, "AppPoliconsultorio/alta_medico.html", context)
+
+def baja_medico(request):
+    # Baja de un Médico
+    context = {}
+    return render(request, "AppPoliconsultorio/baja_medico.html", context)
