@@ -85,6 +85,12 @@ def turno_consulta(request):
     
     if request.method == "POST":
         turno_consulta_form = ConsultaTurnosForm(request.POST)
+        if turno_consulta_form.is_valid():
+        #    if turno_consulta_form.is_bound():
+            print(turno_consulta_form.cleaned_data['fecha_desde'])
+            pass
+        else:
+            pass
     else:
         turno_consulta_form = ConsultaTurnosForm()
 

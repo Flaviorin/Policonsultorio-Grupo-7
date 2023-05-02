@@ -14,15 +14,9 @@
 			<h2><u>Consulta de Turnos</u></h2>
 		</div>
 		<!--<form>-->
-		<form action="{% url 'turno_consulta' %}" method="get">
-			<!-- {% csrf_token %} -->
+		<form action="{% url 'turno_consulta' %}" method="post">
+			{% csrf_token %}
 			<div class="form-row">
-				<!-- <div class="col-lg-11 mt-5 mt-lg-0 d-flex align-items-stretch"> -->
-					<!-- <div class="form-group col-md-6"> -->
-						<!-- <label for="paciente">Paciente:</label> -->
-						<!--<input type="text" class="form-control" id="paciente">-->
-						<!-- {{ turno_consulta_form.paciente}} -->
-						<!-- {{ turno_consulta_form.as_p}} -->
 				<div>
 						<label class='rotulo_filtro' for="paciente">DNI Paciente:</label>
 						{{ turno_consulta_form.paciente }}
@@ -36,7 +30,6 @@
 						{{ turno_consulta_form.fecha_desde }}
 						<label class='rotulo_filtro' for="fechas_hasta"> Fecha Hasta:</label>
 						{{ turno_consulta_form.fecha_hasta }}
-					<!-- </div> -->
 				</div>
 			</div>
 			<div class="form-row justify-content-center">
