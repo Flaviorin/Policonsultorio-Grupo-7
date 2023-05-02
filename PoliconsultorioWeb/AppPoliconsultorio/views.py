@@ -1,8 +1,8 @@
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound
-from .forms import ContactoForm
 from .turno import AltaTurnoForm
+from .forms import *
 from django.http import HttpResponseRedirect
 
 # Create your views here.
@@ -87,20 +87,48 @@ def contacto(request):
         'turnos': turnos_otorgados,
    }
     
-      
+def baja_turno(request):
+    turnos_otorgados = [
+        {
+            'dia': '20/04/2023',
+            'hora': '09:00',
+            'medico': 'Dr. Juan Pérez',
+            'especialidad': 'Cardiología',
+            'paciente': 'Adriana Cullen',
+        },
+        {
+            'dia': '20/04/2023',
+            'hora': '09:00',
+            'medico': 'Dra. María González',
+            'especialidad': 'Dermatología',
+            'paciente': 'José Olleros',
+        },
+        {
+            'dia': '20/04/2023',
+            'hora': '11:00',
+            'medico': 'Dr. Juan Perez',
+            'especialidad': 'Cardiología',
+            'paciente': 'Mariano Burgos',
+        },
+    ]
+
+    context = {
+        'nombre': 'Juana',
+        'turnos': turnos_otorgados,
+   }     
     if request.method == "POST":
         # Creo la instancia del formulario con los datos cargados en pantalla
-        contacto_form = ContactoForm(request.POST)
+        bajaturno_form = BajaTurnoForm(request.POST)
         # Valido y proceso los datos.
         
-        if contacto_form.is_valid():              
+        if bajaturno_form.is_valid():              
            
-            return render(request, "AppPoliconsultorio/contacto.html", context) 
+            return render(request, "AppPoliconsultorio/baja_turno.html", context) 
              
     else:
             # Creo el formulario vacío con los valores por defecto
-        contacto_form = ContactoForm()
-    return render(request, "AppPoliconsultorio/contacto.html", {'contacto_form': contacto_form })
+        bajaturno_form = BajaTurnoForm()
+    return render(request, "AppPoliconsultorio/baja_turno.html", {'bajaturno_form': bajaturno_form })
     
 
    
