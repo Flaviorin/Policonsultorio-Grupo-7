@@ -49,9 +49,65 @@ def index(request):
         }
     return render(request, "AppPoliconsultorio/index.html", context)
 
-def index(request):
+
+# comento porque esta funcion esta definida justo aca arriba
+""" def index(request):
     context = {}
-    return render (request,"AppPoliconsultorio/index.html", context)
+    return render (request,"AppPoliconsultorio/index.html", context) """
+
+
+
+def contacto(request):
+    turnos_otorgados = [
+        {
+            'dia': '20/04/2023',
+            'hora': '09:00',
+            'medico': 'Dr. Juan Pérez',
+            'especialidad': 'Cardiología',
+            'paciente': 'Adriana Cullen',
+        },
+        {
+            'dia': '20/04/2023',
+            'hora': '09:00',
+            'medico': 'Dra. María González',
+            'especialidad': 'Dermatología',
+            'paciente': 'José Olleros',
+        },
+        {
+            'dia': '20/04/2023',
+            'hora': '11:00',
+            'medico': 'Dr. Juan Perez',
+            'especialidad': 'Cardiología',
+            'paciente': 'Mariano Burgos',
+        },
+    ]
+
+    context = {
+        'nombre': 'Juana',
+        'turnos': turnos_otorgados,
+   }
+    
+      
+    if request.method == "POST":
+        # Creo la instancia del formulario con los datos cargados en pantalla
+        contacto_form = ContactoForm(request.POST)
+        # Valido y proceso los datos.
+        
+        if contacto_form.is_valid():              
+           
+            return render(request, "AppPoliconsultorio/contacto.html", context) 
+             
+    else:
+            # Creo el formulario vacío con los valores por defecto
+        contacto_form = ContactoForm()
+    return render(request, "AppPoliconsultorio/contacto.html", {'contacto_form': contacto_form })
+    
+
+   
+
+
+
+
 
 
 def turno_medico(request):
@@ -136,11 +192,12 @@ def contacto(request):
         if contacto_form.is_valid():
             #Process the data in form.cleaned_data as required # ...
             # De esta manera veo los datos que fueron completados en el formulario
-            print('Nombre: ',contacto_form.cleaned_data['nombre'])
-            print('Apellido: ',contacto_form.cleaned_data['apellido'])
-            print('Email: ',contacto_form.cleaned_data['email'])
+            print('Documento: ',contacto_form.cleaned_data['nombre'])
+            
+            # print('Apellido: ',contacto_form.cleaned_data['apellido'])
+           
             #Redirect to a new url:
-            return HttpResponseRedirect('/AppPoliconsultorio/thanks/')
+            # return HttpResponseRedirect('/AppPoliconsultorio/thanks/')
     else:
         # Creo el formulario vacío con los valores por defecto
         contacto_form = ContactoForm()

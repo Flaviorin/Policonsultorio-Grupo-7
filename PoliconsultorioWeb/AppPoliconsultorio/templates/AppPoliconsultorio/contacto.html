@@ -10,12 +10,50 @@
         <!-- lo de abajo hace que quede encolumnado, 
             el profe dijo que se puede  traer de a campos 
             para hacerlo en un html con estilos...-->
-        {{ contacto_form.nombre.label}}
-        {{ contacto_form.nombre}}
+       <!--  {{ contacto_form.nombre.label}}
+        {{ contacto_form.nombre}} -->
         <br><br>
-        {{ contacto_form.as_p }}
+        <div class="form-row justify-content-center">
+			<h2><u>Ingrese los datos del paciente</u></h2>
+		</div>
+        {{ contacto_form }}
 
-        <input type="submit" value="Contactar">
+        <div class="form-group col-md-6 mt-3">
+            <button type="submit" class="btn btn-primary">Buscar paciente</button>
+        </div>
+
+    <h2>Turnos del paciente {{nombre}}</h2>
+        
+        <article>
+             <ul>
+                {% for xx in turnos %}v
+                <li>
+                    <p>Fecha: {{ xx.dia }}</p>
+                </li>
+                <li> 
+                    <p>Hora: {{ xx.hora }}</p>
+                </li>
+                <li>
+                    <p>Profesional: {{ xx.medico }}</p>
+                </li>
+                <li>
+                    <p> Especialidad: {{ xx.especialidad }} </p>
+                </li>
+                {% endfor %}
+            </ul> 
+
+          <!--  <p>Fecha: {{ turno.dia }}</p>
+           <p>Profesional: {{ turno.medico }}</p> -->
+           
+
+           <!--  <p>Hora: {{turnos_otorgados.hora}}</p>
+            <p>Profesional: {{turnos_otorgados.medico}}</p>
+            <p>Especialidad: {{turnos_otorgados.especialidad}}</p>   -->
+            
+        </article>
+
+       
+
     </form>
 </div>
 
