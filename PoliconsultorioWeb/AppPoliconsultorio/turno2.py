@@ -1,7 +1,8 @@
 from django import forms
 from django.forms.fields import DateField
 
-class AltaTurnoForm(forms.Form):
+
+class AltaTurnoForm2(forms.Form):
 
     listado_especialidad = (('Z','Seleccione una especialidad'),('Cardiología','Cardiología'),('Dermatología','Dermatología'),('Neurología','Neurología'),('Oftalmología','Oftalmología'),('Pediatría','Pediatría'))
 
@@ -12,8 +13,6 @@ class AltaTurnoForm(forms.Form):
                        ('4','Dra. Ana Rodríguez (Oftalmología)'),
                        ('5','Dr. Pedro López (Pediatría)'))
 
-    paciente = forms.CharField(label="pacientex:", max_length=8, min_length=7 ,required=True,
-        widget=forms.TextInput(attrs={"class": "form-control", "id":"paciente"}))
     especialidad = forms.ChoiceField(label="especialidadx:",required=False, choices = listado_especialidad,
         widget=forms.Select(attrs={"class": "form-control", "id":"especialidad"}))
     medico = forms.ChoiceField(label="medicox:", required=False, choices = listado_medicos,
