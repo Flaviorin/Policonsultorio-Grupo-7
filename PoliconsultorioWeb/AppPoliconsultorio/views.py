@@ -1,20 +1,11 @@
 from datetime import datetime
 from django.shortcuts import render
-<<<<<<< HEAD
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-
 from .forms import *
 from .turno import *
-
 from .especialidades import lista_especialidades
 from .medicos import lista_medicos
-=======
-from django.http import HttpResponse, HttpResponseNotFound
-from .forms import ContactoForm
-from .turno import AltaTurnoForm
-from django.http import HttpResponseRedirect
 from django.contrib import messages
->>>>>>> 090f2d36a8ca3ddae2503497eb4b94947987ca8a
 
 # Create your views here.
 def index(request):
