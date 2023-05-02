@@ -1,5 +1,6 @@
 from datetime import datetime
 from django.shortcuts import render
+<<<<<<< HEAD
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
 
 from .forms import *
@@ -7,6 +8,13 @@ from .turno import *
 
 from .especialidades import lista_especialidades
 from .medicos import lista_medicos
+=======
+from django.http import HttpResponse, HttpResponseNotFound
+from .forms import ContactoForm
+from .turno import AltaTurnoForm
+from django.http import HttpResponseRedirect
+from django.contrib import messages
+>>>>>>> 090f2d36a8ca3ddae2503497eb4b94947987ca8a
 
 # Create your views here.
 def index(request):
@@ -62,22 +70,53 @@ def turno_medico(request):
         # Creo la instancia del formulario con los datos cargados en pantalla
         alta_turno_form = AltaTurnoForm(request.POST)
         # Valido y proceso los datos.
-        if alta_turno_form.is_valid():        
-            print('Paciente: ',alta_turno_form.cleaned_data['paciente'])
-            #print('Paciente: ',alta_turno_form.data['Juan carlos'])
-            print('Especialidad: ',alta_turno_form.cleaned_data['especialidad'])
-            print('Medico: ',alta_turno_form.cleaned_data['medico'])
-            print('Fecha: ',alta_turno_form.cleaned_data['fecha'])
-            #print('Horario: ',alta_turno_form.cleaned_data['horario'])
-            #print('Disponible: ',alta_turno_form.cleaned_data['disponible'])
-            #print('Flag_Disponible: ',alta_turno_form.cleaned_data['flag_disponible'])
-            #Redirect to a new url:
-            print("Es valido")
-            return HttpResponseRedirect('/AppPoliconsultorio/turno_medico/')
+        if alta_turno_form.is_valid():
+            if alta_turno_form.cleaned_data['fecha'] is None or alta_turno_form.cleaned_data['especialidad'] == 'Z' or alta_turno_form.cleaned_data['medico'] == 'Z':
+                print('Paciente: ',alta_turno_form.cleaned_data['paciente'])
+                print('Especialidad: ',alta_turno_form.cleaned_data['especialidad'])
+                print('Medico: ',alta_turno_form.cleaned_data['medico'])
+                print('Fecha: ',alta_turno_form.cleaned_data['fecha'])
+                print('horario: ',request.POST.get("horario"))
+                # Le voy a cambiar a uno de los datos algo
+                paciente = 'Mabel Gandulfo'
+                #return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form, 'alta_turno_form2': alta_turno_form2, 'paciente': paciente, 'listado_disp_medicos': listado_disp_medicos})
+                messages.add_message(request, messages.WARNING, 'Debe elegir una Especialidad, Médico y fecha!', extra_tags="tag1")
+                return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form, 'paciente': paciente})
+                #Redirect to a new url:
+                #return HttpResponseRedirect('/AppPoliconsultorio/turno_medico/')
+                #Poner el mensaje falta elegir la fecha
+
+            if alta_turno_form.cleaned_data['fecha'] is not None and request.POST.get("horario") is None:
+                print('Paciente: ',alta_turno_form.cleaned_data['paciente'])
+                print('Especialidad: ',alta_turno_form.cleaned_data['especialidad'])
+                print('Medico: ',alta_turno_form.cleaned_data['medico'])
+                print('Fecha: ',alta_turno_form.cleaned_data['fecha'])
+                #print('seleccion_turno: ',alta_turno_form3.cleaned_data['seleccion_turno'])
+                #print(request.POST)
+                print('horario: ',request.POST.get("horario"))
+                paciente = 'Mabel Gandulfox'
+                messages.add_message(request, messages.WARNING, 'Debe elegir un horario!', extra_tags="tag1")
+                return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form, 'paciente': paciente, "listado_disp_medicos":listado_disp_medicos})
+            #else:
+                #Poner el mensaje falta elegir el turno
+
+            if request.POST.get("horario") is not None:
+                print('Paciente: ',alta_turno_form.cleaned_data['paciente'])
+                print('Especialidad: ',alta_turno_form.cleaned_data['especialidad'])
+                print('Medico: ',alta_turno_form.cleaned_data['medico'])
+                print('Fecha: ',alta_turno_form.cleaned_data['fecha'])
+                print('horario: ',request.POST.get("horario"))
+                #print('seleccion_turno: ',alta_turno_form3.cleaned_data['seleccion_turno'])
+                paciente = 'Mabel Gandulfoz'
+                print('registro el alta del turno')
+                #funcion_de_guardado_de_turno('actualizar',request.POST)
+                #return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form, 'alta_turno_form2': alta_turno_form2, 'alta_turno_form3': alta_turno_form3, 'paciente': paciente})
+                return render(request,"AppPoliconsultorio/thanks.html")  
+                #return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form, 'alta_turno_form2': alta_turno_form2, 'alta_turno_form3': alta_turno_form3, 'paciente': paciente, 'listado_disp_medicos': listado_disp_medicos})
     else:
         # Creo el formulario vacío con los valores por defecto
         alta_turno_form = AltaTurnoForm()
-    return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form})
+    return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form })
     #return render(request,"AppPoliconsultorio/turnos.html",context)
 
 def turno_consulta(request):

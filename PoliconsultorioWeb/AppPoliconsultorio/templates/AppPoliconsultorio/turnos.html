@@ -8,15 +8,26 @@
 		<div class="form-row justify-content-center">
 			<h2><u>Ingrese los datos del turno médico</u></h2>
 		</div>
+		<section class="messages">
+			{% if messages %}
+				<ul class="messages_list">
+					{% for message in messages %}
+						<li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+							{{ message }}
+						</li>
+					{% endfor %}
+				</ul>
+			{% endif %}
+		</section>
 		<!--<form>-->
 		<form action="{% url "turno_medico" %}" method="post">
 			{% csrf_token %}
 			<div class="form-row">
 				<div class="col-lg-11 mt-5 mt-lg-0 d-flex align-items-stretch">
 					<div class="form-group col-md-6">
-						<label for="paciente">Paciente:</label>
+						<label for="paciente">Paciente: <b>{{ paciente }}</b></label>
 						<!--<input type="text" class="form-control" id="paciente">-->
-						{{ alta_turno_form.paciente}}
+						{{ alta_turno_form.paciente }}
 					</div>
 					<div class="form-group col-md-6 mt-3">
 						<button type="submit" class="btn btn-primary">Buscar paciente</button>
@@ -52,7 +63,7 @@
 				<div class="col-lg-3 mt-5 mt-lg-0 align-items-stretch">
 					<label for="fecha">Fecha:</label>
 					<!-- <input type="date" class="form-control" id="fecha"> -->
-					{{ alta_turno_form.fecha}}
+					{{ alta_turno_form.fecha }}
 				</div>
 				<div class="form-group col-md-6 mt-3">
 					<button type="submit" class="btn btn-primary">Buscar turnos</button>
@@ -75,7 +86,10 @@
 									<td>{{disp_medico.horario}}</td>
 									<td>{{disp_medico.descr_disponible}}</td>
 								</tr>
-							{% endfor %}	
+							{% endfor %} 
+							<!--{% for turno_disp in alta_turno_form3.seleccion_turno %}
+								<tr><td>{{ turno_disp }}</td><td>Prueba</td><td>{{ alta_turno_form3.seleccion_turno.label.0.1 }}</td></tr>
+							{% endfor %}-->
 						</tbody>
 					</table>
 				</div>
