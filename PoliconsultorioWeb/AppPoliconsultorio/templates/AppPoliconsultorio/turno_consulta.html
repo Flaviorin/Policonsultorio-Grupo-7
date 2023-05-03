@@ -17,13 +17,17 @@
 		<form action="{% url 'turno_consulta' %}" method="post">
 			{% csrf_token %}
 			<div class="form-row">
-				<div>
-						<label class='rotulo_filtro' for="paciente">DNI Paciente:</label>
-						{{ turno_consulta_form.paciente }}
+				<div class="form-group col-md-6">
+					<label class='rotulo_filtro' for="paciente">DNI Paciente:</label>
+					{{ turno_consulta_form.paciente }}
+				</div>
+				<div class="col-lg-11 mt-5 mt-lg-0 d-flex align-items-stretch">
+					<div>
 						<label class='rotulo_filtro' for="especialidad">Especialidad:</label>
 						{{ turno_consulta_form.especialidad }}
 						<label class='rotulo_filtro' for="medico">Médico:</label>
 						{{ turno_consulta_form.medico }}
+					</div>
 				</div>
 				<div>
 						<label class='rotulo_filtro' for="fecha_desde"> Fecha Desde:</label>
@@ -33,7 +37,32 @@
 				</div>
 			</div>
 			<div class="form-row justify-content-center">
-				<button type="submit" class="btn btn-primary">Filtrar</button>
+				<button type="submit" class="btn btn-primary">Consultar</button>
+			</div>
+			<div class="form-row justify-content-center">
+				<div class="form-group col-md-12">
+					<table class="table table-bordered">
+						<thead class="table-header">
+						<tr>
+							<!--<th scope="col"></th>-->
+							<th scope="col">Horario</th>
+							<th scope="col">Disponibilidad</th>
+						</tr>
+						</thead>
+						<tbody>
+							{% for disp_medico in listado_disp_medicos %}
+								<tr>
+									<!--<th scope="row"><input type="radio" name="horario" value="{{disp_medico.ID}}" {{disp_medico.flag}}></th>-->
+									<td>{{disp_medico.horario}}</td>
+									<td>{{disp_medico.descr_disponible}}</td>
+								</tr>
+							{% endfor %} 
+							<!--{% for turno_disp in alta_turno_form3.seleccion_turno %}
+								<tr><td>{{ turno_disp }}</td><td>Prueba</td><td>{{ alta_turno_form3.seleccion_turno.label.0.1 }}</td></tr>
+							{% endfor %}-->
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</form>
 	</div>

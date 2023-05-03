@@ -87,7 +87,7 @@ def turno_medico(request):
                 print('horario: ',request.POST.get("horario"))
                 paciente = 'Mabel Gandulfox'
                 messages.add_message(request, messages.WARNING, 'Debe elegir un horario!', extra_tags="tag1")
-                return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form, 'paciente': paciente, "listado_disp_medicos":listado_disp_medicos})
+                return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form, 'paciente': paciente, "listado_disp_medicos":funcion_de_guardado_de_turno('consultar','','','')})
             #else:
                 #Poner el mensaje falta elegir el turno
 
@@ -100,10 +100,17 @@ def turno_medico(request):
                 #print('seleccion_turno: ',alta_turno_form3.cleaned_data['seleccion_turno'])
                 paciente = 'Mabel Gandulfoz'
                 print('registro el alta del turno')
-                #funcion_de_guardado_de_turno('actualizar',request.POST)
+                funcion_de_guardado_de_turno('actualizar',request.POST.get("horario"),'No disponible','disabled')
                 #return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form, 'alta_turno_form2': alta_turno_form2, 'alta_turno_form3': alta_turno_form3, 'paciente': paciente})
                 return render(request,"AppPoliconsultorio/thanks.html")  
                 #return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form, 'alta_turno_form2': alta_turno_form2, 'alta_turno_form3': alta_turno_form3, 'paciente': paciente, 'listado_disp_medicos': listado_disp_medicos})
+        else:
+            #messages.add_message(request, messages.WARNING, alta_turno_form.errors, extra_tags="tag1")
+            #print(alta_turno_form.errors)
+            error_paciente = alta_turno_form.errors
+            alta_turno_form = AltaTurnoForm()
+            return render(request, "AppPoliconsultorio/turnos.html", {'alta_turno_form': alta_turno_form, 'error_paciente' : error_paciente})
+
     else:
         # Creo el formulario vacío con los valores por defecto
         alta_turno_form = AltaTurnoForm()
@@ -118,7 +125,7 @@ def turno_consulta(request):
         if turno_consulta_form.is_valid():
         #    if turno_consulta_form.is_bound():
             print(turno_consulta_form.cleaned_data['fecha_desde'])
-            pass
+            return render(request, "AppPoliconsultorio/turno_consulta.html", {'turno_consulta_form': turno_consulta_form, "listado_disp_medicos":funcion_de_guardado_de_turno('consultar','','','')})
         else:
             pass
     else:
