@@ -6,11 +6,11 @@ from .medicos import lista_medicos
 
 class AltaTurnoForm(forms.Form):
 
-<<<<<<< HEAD
+#<<<<<<< HEAD
     listado_especialidad = lista_especialidades()
-=======
+#=======
     listado_especialidad = (('Z','Seleccione una especialidad'),('Cardiología','Cardiología'),('Dermatología','Dermatología'),('Neurología','Neurología'),('Oftalmología','Oftalmología'),('Pediatría','Pediatría'))
->>>>>>> 090f2d36a8ca3ddae2503497eb4b94947987ca8a
+#>>>>>>> 090f2d36a8ca3ddae2503497eb4b94947987ca8a
 
     listado_medicos = lista_medicos()
 

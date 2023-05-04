@@ -30,3 +30,12 @@ class ConsultaTurnosForm(forms.Form):
     medico = forms.ChoiceField(label=' Médico', choices=lista_medicos(), required=False, widget=forms.Select)
     fecha_desde = forms.DateField(label=' Fecha Desde',widget=forms.DateInput(attrs={'type': 'date'}), required=False)
     fecha_hasta = forms.DateField(label=' Fecha Hasta',widget=forms.DateInput(attrs={'type': 'date'}), required=False)
+
+class BajaTurnoForm(forms.Form):
+    paciente = forms.CharField(label="DNI Paciente", max_length=15, widget=forms.TextInput(attrs={'class': 'paciente'}), required=False)
+
+class BajaTurnoDetalleForm(forms.Form):
+    fecha = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    horario = forms.CharField(label="Horario", required=True)       
+    medico = forms.CharField(label=' Médico', widget=forms.TextInput(attrs={'class': 'paciente'}))
+    especialidad = forms.CharField(label=' Especialidad')
