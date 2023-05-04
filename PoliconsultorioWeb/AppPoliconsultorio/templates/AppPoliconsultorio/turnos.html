@@ -8,17 +8,24 @@
 		<div class="form-row justify-content-center">
 			<h2><u>Ingrese los datos del turno médico</u></h2>
 		</div>
-		<section class="messages">
+		<div class="messages form-row justify-content-center" style="color: red;">
+			{% filter upper %}
+				<p><b> {{ error_paciente }} </b></p>
+			{% endfilter %}
+		</div>
+		<div class="messages form-row justify-content-center">
 			{% if messages %}
 				<ul class="messages_list">
 					{% for message in messages %}
-						<li {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-							{{ message }}
+						{% filter upper %}
+						<li style="color: red;" {% if message.tags %} class="{{ message.tags }}" {% endif %}>
+							<b> {{ message }} </b>
 						</li>
+						{% endfilter %}
 					{% endfor %}
 				</ul>
 			{% endif %}
-		</section>
+		</div>
 		<!--<form>-->
 		<form action="{% url "turno_medico" %}" method="post">
 			{% csrf_token %}
