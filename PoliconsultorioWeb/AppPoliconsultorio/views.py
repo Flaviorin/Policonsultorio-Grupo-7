@@ -138,6 +138,58 @@ def turno_consulta(request):
     }
     return render(request, "AppPoliconsultorio/turno_consulta.html", context)
 
+def baja_turno(request):
+    turnos_otorgados = [
+        {
+            'dia': '08/05/2023',
+            'hora': '09:00',
+            'medico': 'Dr. Juan Pérez',
+            'especialidad': 'Cardiología',
+            'paciente': 'Adriana Cullen',
+        },
+        {
+            'dia': '15/05/2023',
+            'hora': '09:00',
+            'medico': 'Dra. María González',
+            'especialidad': 'Dermatología',
+            'paciente': 'José Olleros',
+        },
+        {
+            'dia': '17/06/2023',
+            'hora': '11:00',
+            'medico': 'Dr. Juan Perez',
+            'especialidad': 'Cardiología',
+            'paciente': 'Mariano Burgos',
+        },
+    ]
+
+    context = {
+        'nombre': 'ninguno',
+        'turnos': turnos_otorgados,
+        'paciente': request.POST.get("paciente")
+        
+   }    
+    
+    if request.method == "POST":
+        # Creo la instancia del formulario con los datos cargados en pantalla
+        bajaturno_form = BajaTurnoForm(request.POST)
+      
+        if request.POST.get("paciente") is None:   
+           print ('ingreso al if')                   
+           messages.add_message(request, messages.WARNING, 'Debe ingresar un paciente', extra_tags="tag1")
+        return render(request, "AppPoliconsultorio/baja_turno.html", context) 
+    
+      
+        # Valido y proceso los datos.
+               
+        if bajaturno_form.is_valid():              
+           
+           return render(request, "AppPoliconsultorio/baja_turno.html", context)      
+    else:
+            # Creo el formulario vacío con los valores por defecto
+        bajaturno_form = BajaTurnoForm()
+    return render(request, "AppPoliconsultorio/baja_turno.html", {'bajaturno_form': bajaturno_form })
+
 def especialidades(request):
     context = {}
     return render (request,"AppPoliconsultorio/especialidades.html", context)
