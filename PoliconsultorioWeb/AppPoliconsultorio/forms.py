@@ -56,3 +56,11 @@ class ConsultaTurnosForm(forms.Form):
         
         return cleaned_data
         
+class BajaTurnoForm(forms.Form):
+    paciente = forms.CharField(label="DNI Paciente", max_length=15, widget=forms.TextInput(attrs={'class': 'paciente'}), required=False)
+
+class BajaTurnoDetalleForm(forms.Form):
+    fecha = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}))
+    horario = forms.CharField(label="Horario", required=True)       
+    medico = forms.CharField(label=' Médico', widget=forms.TextInput(attrs={'class': 'paciente'}))
+    especialidad = forms.CharField(label=' Especialidad')

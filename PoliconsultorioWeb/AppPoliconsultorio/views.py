@@ -1,19 +1,12 @@
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-<<<<<<< HEAD
 from django.contrib import messages
 
-=======
->>>>>>> main
 from .forms import *
 from .turno import *
 from .especialidades import lista_especialidades
 from .medicos import lista_medicos
-<<<<<<< HEAD
-=======
-from django.contrib import messages
->>>>>>> main
 
 # Create your views here.
 def index(request):
@@ -131,13 +124,7 @@ def turno_consulta(request):
     if request.method == "POST":
         turno_consulta_form = ConsultaTurnosForm(request.POST)
         if turno_consulta_form.is_valid():
-<<<<<<< HEAD
             listado_turnos = lista_turnos()
-=======
-        #    if turno_consulta_form.is_bound():
-            print(turno_consulta_form.cleaned_data['fecha_desde'])
-            return render(request, "AppPoliconsultorio/turno_consulta.html", {'turno_consulta_form': turno_consulta_form, "listado_disp_medicos":funcion_de_guardado_de_turno('consultar','','','')})
->>>>>>> main
         else:
             print(turno_consulta_form.cleaned_data['fechaDesde'])
             messages.add_message(request, messages.WARNING, 'Debe ingresar un rango de fechas correcto, Fecha Desde <= Fechas Hasta', extra_tags="tag1")
@@ -150,6 +137,58 @@ def turno_consulta(request):
         "turno_consulta_form": turno_consulta_form,
     }
     return render(request, "AppPoliconsultorio/turno_consulta.html", context)
+
+def baja_turno(request):
+    turnos_otorgados = [
+        {
+            'dia': '08/05/2023',
+            'hora': '09:00',
+            'medico': 'Dr. Juan Pérez',
+            'especialidad': 'Cardiología',
+            'paciente': 'Adriana Cullen',
+        },
+        {
+            'dia': '15/05/2023',
+            'hora': '09:00',
+            'medico': 'Dra. María González',
+            'especialidad': 'Dermatología',
+            'paciente': 'José Olleros',
+        },
+        {
+            'dia': '17/06/2023',
+            'hora': '11:00',
+            'medico': 'Dr. Juan Perez',
+            'especialidad': 'Cardiología',
+            'paciente': 'Mariano Burgos',
+        },
+    ]
+
+    context = {
+        'nombre': 'ninguno',
+        'turnos': turnos_otorgados,
+        'paciente': request.POST.get("paciente")
+        
+   }    
+    
+    if request.method == "POST":
+        # Creo la instancia del formulario con los datos cargados en pantalla
+        bajaturno_form = BajaTurnoForm(request.POST)
+      
+        if request.POST.get("paciente") is None:   
+           print ('ingreso al if')                   
+           messages.add_message(request, messages.WARNING, 'Debe ingresar un paciente', extra_tags="tag1")
+        return render(request, "AppPoliconsultorio/baja_turno.html", context) 
+    
+      
+        # Valido y proceso los datos.
+               
+        if bajaturno_form.is_valid():              
+           
+           return render(request, "AppPoliconsultorio/baja_turno.html", context)      
+    else:
+            # Creo el formulario vacío con los valores por defecto
+        bajaturno_form = BajaTurnoForm()
+    return render(request, "AppPoliconsultorio/baja_turno.html", {'bajaturno_form': bajaturno_form })
 
 def especialidades(request):
     context = {}
