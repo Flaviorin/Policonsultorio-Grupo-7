@@ -1,19 +1,12 @@
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseNotFound, HttpResponseRedirect
-<<<<<<< HEAD
 from django.contrib import messages
 
-=======
->>>>>>> main
 from .forms import *
 from .turno import *
 from .especialidades import lista_especialidades
 from .medicos import lista_medicos
-<<<<<<< HEAD
-=======
-from django.contrib import messages
->>>>>>> main
 
 # Create your views here.
 def index(request):
@@ -131,13 +124,7 @@ def turno_consulta(request):
     if request.method == "POST":
         turno_consulta_form = ConsultaTurnosForm(request.POST)
         if turno_consulta_form.is_valid():
-<<<<<<< HEAD
             listado_turnos = lista_turnos()
-=======
-        #    if turno_consulta_form.is_bound():
-            print(turno_consulta_form.cleaned_data['fecha_desde'])
-            return render(request, "AppPoliconsultorio/turno_consulta.html", {'turno_consulta_form': turno_consulta_form, "listado_disp_medicos":funcion_de_guardado_de_turno('consultar','','','')})
->>>>>>> main
         else:
             print(turno_consulta_form.cleaned_data['fechaDesde'])
             messages.add_message(request, messages.WARNING, 'Debe ingresar un rango de fechas correcto, Fecha Desde <= Fechas Hasta', extra_tags="tag1")
