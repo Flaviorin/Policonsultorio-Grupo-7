@@ -1,4 +1,5 @@
 from django import forms
+from django.core.exceptions import ValidationError
 
 from .medicos import lista_medicos
 from .especialidades import lista_especialidades
@@ -28,5 +29,30 @@ class ConsultaTurnosForm(forms.Form):
     especialidad = forms.ChoiceField(label=' Especialidad', choices=lista_especialidades(), required=False, widget=forms.Select)
     # # medico = forms.CharField(label="Médico", widget=forms.TextInput(attrs={'class': 'medico'}), required=False)
     medico = forms.ChoiceField(label=' Médico', choices=lista_medicos(), required=False, widget=forms.Select)
-    fecha_desde = forms.DateField(label=' Fecha Desde',widget=forms.DateInput(attrs={'type': 'date'}), required=False)
-    fecha_hasta = forms.DateField(label=' Fecha Hasta',widget=forms.DateInput(attrs={'type': 'date'}), required=False)
+    fechaDesde = forms.DateField(label=' Fecha Desde',widget=forms.DateInput(attrs={'type': 'date'}), required=False)
+    fechaHasta = forms.DateField(label=' Fecha Hasta',widget=forms.DateInput(attrs={'type': 'date'}), required=False)
+
+    # def clean_fechaDesde(self):
+    #     dataD = self.cleaned_data["fechaDesde"]
+    #     dataH = self.cleaned_data["fechaHasta"]
+
+    #     if dataD is not None and dataH is not None and dataD > dataH:
+    #         raise ValidationError("La Fecha Desde debe ser anterior a la Fecha Hasta")
+        
+    #     return dataD
+    
+    def clean(self):
+        cleaned_data = super().clean()
+        dataD = cleaned_data.get("fechaDesde")
+        dataH = cleaned_data.get("fechaHasta")
+
+        print(cleaned_data)
+        print(dataD)
+        print(dataH)
+        if dataD is not None and dataH is not None: print(dataD > dataH)
+
+        if dataD is not None and dataH is not None and dataD > dataH:
+            raise ValidationError("La Fecha Desde debe ser anterior a la Fecha Hasta")
+        
+        return cleaned_data
+        
