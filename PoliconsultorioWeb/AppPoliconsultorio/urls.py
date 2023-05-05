@@ -12,4 +12,5 @@ urlpatterns = [
     path('acerca/', views.acerca, name='acerca'),
     path('contacto/', views.contacto, name="contacto"),
     path('thanks/', views.thanks, name="thanks"),
+    # path('turnos/<slug:slug>/',views.turnos,name="turnos_rol"),
 ]
