@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, re_path
 from . import views
 
 urlpatterns = [
@@ -14,3 +14,4 @@ urlpatterns = [
     path('thanks/', views.thanks, name="thanks"),
     # path('turnos/<slug:slug>/',views.turnos,name="turnos_rol"),
 ]
+

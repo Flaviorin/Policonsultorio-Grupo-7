@@ -69,7 +69,8 @@ class AltaTurnoForm(forms.Form):
 
 def lista_turnos():
     listado_turnos = [
-        {
+        {  
+            'ID':'1',
             'dia': '20/04/2023',
             'hora': '09:00',
             'medico': 'Dr. Juan Pérez',
@@ -77,6 +78,7 @@ def lista_turnos():
             'paciente': 'Adriana Cullen',
         },
         {
+            'ID':'2',
             'dia': '20/04/2023',
             'hora': '10:00',
             'medico': 'Dra. María González',
@@ -84,6 +86,7 @@ def lista_turnos():
             'paciente': 'José Olleros',
         },
         {
+            'ID':'3',
             'dia': '20/04/2023',
             'hora': '11:00',
             'medico': 'Dr. Juan Perez',

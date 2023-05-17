@@ -16,25 +16,43 @@
             para hacerlo en un html con estilos...-->
         
         <br><br>
-        <div class="container">
-
-       
         <div class="form-row justify-content-center">
 			<h2><u>Eliminación de turnos</u></h2>
 		</div>
-        <!-- <div class="form-row">
+        <div class="form-row">
             <div class="col-lg-11 mt-5 mt-lg-0 d-flex align-items-stretch">
-                <div class="form-group col-md-6"> -->
-                    <br><br>
-                    <div class="form-group col-md-6">
-                        <label class='rotulo_filtro' for="paciente">DNI Paciente:</label> 
-                            {{ bajaturno_form.paciente }}   
-                        <button type="submit" class="btn btn-primary">Buscar paciente</button>
-                     </div>
-    <!-- </form> -->
+                <div class="form-group col-md-6">
 
- <!-- <div class="messages form-row justify-content-center"> 
-     {% if messages %}
+                    <label for="paciente">Paciente: <b> {{ paciente }}</b></label>
+                    
+                                       <!--<input type="text" class="form-control" id="paciente">-->
+                    {{ bajaturno_form.paciente }}
+                </div>
+                <div class="form-group col-md-6 mt-3">
+                    <button type="submit" class="btn btn-primary">Buscar paciente</button>
+                </div>
+            </div>
+        </div>
+
+      
+
+    </form>
+
+<!-- ******************************************************* -->
+                
+       <!--  {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li
+                    {% if message.tags %} class="{{ message.tags }}"
+                    {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+ -->
+
+ <div class="messages form-row justify-content-center">
+    {% if messages %}
         <ul class="messages_list">
             {% for message in messages %}
                 {% filter upper %}
@@ -45,13 +63,16 @@
             {% endfor %}
         </ul>
     {% endif %}
-</div> -->
+</div>
 
 
-            <div class="form-group col-md-6">
-                Turnos del paciente: {{paciente}} <br><br>
-            </div>
 
+
+
+
+            <ul>               
+               <p> Turnos del paciente: {{paciente}}</p> <br>                              
+            
               <div class="form-row justify-content-center">
 				<div class="form-group col-md-12">
 					<table class="table table-bordered">
@@ -67,13 +88,12 @@
 						</thead>
 	                    <tbody>
 							{% for xx in turnos %}
-                                <!-- <th>{{ xx.D }}</th> -->
 								<th>{{ xx.dia }}</th>
 								<td>{{ xx.hora }}</td>
 								<td>{{ xx.medico }}</td>
 								<td>{{ xx.especialidad }}</td>
 								<td>{{ xx.paciente }}</td>
-                                <td><input type="radio" name="selectbajaturno" value= {{ xx.ID }} ></td>
+                                <td><input type="radio" name="bajaturno" value=""</td>
 							</tr>
 							{% endfor %}
 						</tbody>
@@ -81,34 +101,21 @@
 					</table>
             </div>
 
+            <div class="form-group col-md-6 mt-3">
 
-
-
-
-            
-
-            <!-- <div class="form-group col-md-6 mt-3"> -->
-            <div class="form-group col-md-6"> 
                 {% if turnos %}  
-                    <button type="submit" class="btn btn-primary">Eliminar el turno</button>                    
+             <!-- validar si esto funciona -->
+
+               
+                    <button type="submit" class="btn btn-primary">Eliminar el turno</button>
+
                 {% endif %}
-            </div>            
-           
-            <div class="messages form-row justify-content-center"> 
-                {% if messages %}
-                   <ul class="messages_list">
-                       {% for message in messages %}
-                           {% filter upper %}
-                           <li style="color: red;" {% if message.tags %} class="{{ message.tags }}" {% endif %}>
-                               <b> {{ message }} </b>
-                           </li>
-                           {% endfilter %}
-                       {% endfor %}
-                   </ul>
-               {% endif %}
-           </div>
-   
+            </div>
+            
+            </ul> 
+            
+    <!-- </form> -->
 </div>
-</form>
-{% endblock %}  
+
+{% endblock %}
 
