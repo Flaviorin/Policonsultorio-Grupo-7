@@ -50,11 +50,7 @@
 # Si bien las validaciones fueron terminadas siguiendo los pasos del alta, cuando agregamos el modelo y lo asociamos al mismo
 # para traer los datos de la base algunas de las validaciones dejaron de funcionar (Esto queda pendiente)...
 #
-# Tareas pendientes del Alta de turno:
-# Queda por armar que cuando se eligen todos los datos "VALIDOS" en el alta y se presione el boton para buscar los turnos,
-# traiga de la base los turnos del medico elegido.
-# Esta tarea por lo que veo en el modelo tiene la logica de que si tiene un paciente le deje inactivo el rad button en el registro
-# de tabla que se ve en pantalla.
-# Luego hay que hacer el guardado en la base...
+# Alta de turno: (22-05-2023)
+# En el alta de turnos, el turno viene de la BD y se guarda en la BD.
 #
 #
