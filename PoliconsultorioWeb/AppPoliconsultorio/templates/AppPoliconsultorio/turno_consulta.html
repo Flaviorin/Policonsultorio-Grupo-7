@@ -87,7 +87,7 @@
 						</thead>
 	                    <tbody>
 							{% for turno in listado_turnos %}
-							<tr style='color: {% cycle 'lightcoral' 'green' %}'>
+							<tr style='background-color: {% cycle '#f3c5aa' '#f1d5c5' %}'>
 								<th>{{ turno.dia }}</th>
 								<td>{{ turno.hora }}</td>
 								<td>{{ turno.medico }}</td>
